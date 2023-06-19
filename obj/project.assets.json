@@ -4600,11 +4600,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projects\\MyApps\\Login\\Login.csproj",
+      "projectUniqueName": "C:\\Projects\\MyApps\\Login\\APIWithLogin\\Login.csproj",
       "projectName": "Login",
-      "projectPath": "C:\\Projects\\MyApps\\Login\\Login.csproj",
+      "projectPath": "C:\\Projects\\MyApps\\Login\\APIWithLogin\\Login.csproj",
       "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
-      "outputPath": "C:\\Projects\\MyApps\\Login\\obj\\",
+      "outputPath": "C:\\Projects\\MyApps\\Login\\APIWithLogin\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

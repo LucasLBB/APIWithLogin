@@ -8,5 +8,6 @@ namespace Login.Models
         public AppSetingsDBContext(DbContextOptions<AppSetingsDBContext> options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Product> Products { get; set; }
     }
 }

@@ -17,9 +17,9 @@ namespace Login.Repositories
         
         }
 
-        public async Task<User> GetUserAsync(string username, string password)
+        public async Task<User?> GetUserAsync(string username, string password)
         {
-            var user = _context.Users.Where(x => x.Username.ToLower() == username.ToLower() && x.Password == x.Password).FirstOrDefault();
+            var user = _context.Users.Where(x => x.Username.ToLower() == username.ToLower() && x.Password == password).FirstOrDefault();
 
             if(user == null)
             {

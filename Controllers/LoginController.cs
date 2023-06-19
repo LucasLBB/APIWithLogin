@@ -11,12 +11,12 @@ namespace Login.Controllers
     public class LoginController : Controller
     {
 
-        public readonly IUserRepository _context;
+        public readonly IUserRepository _repository;
 
-        public LoginController(IUserRepository context)
+        public LoginController(IUserRepository repository)
         {
 
-            _context = context;
+            _repository = repository;
 
         }
 
@@ -26,7 +26,7 @@ namespace Login.Controllers
         public async Task<ActionResult<dynamic>> Authenticate([FromBody] User model)
         {
             // Recupera o usuário
-            var user = await _context.GetUserAsync(model.Username, model.Password);
+            var user = await _repository.GetUserAsync(model.Username, model.Password);
 
             // Verifica se o usuário existe
             if (user == null)
@@ -45,25 +45,5 @@ namespace Login.Controllers
                 token = token
             };
         }
-
-        [HttpGet]
-        [Route("anonymous")]
-        [AllowAnonymous]
-        public string Anonymous() => "Anônimo";
-
-        [HttpGet]
-        [Route("authenticated")]
-        [Authorize]
-        public string Authenticated() => String.Format("Autenticado - {0}", User.Identity.Name);
-
-        [HttpGet]
-        [Route("employee")]
-        [Authorize(Roles = "employee,manager")]
-        public string Employee() => "Funcionário";
-
-        [HttpGet]
-        [Route("manager")]
-        [Authorize(Roles = "manager")]
-        public string Manager() => "Gerente";
     }
 }
