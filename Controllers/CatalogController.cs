@@ -21,21 +21,21 @@ namespace Login.Controllers
         [Route("catalog")]
         public async Task<ActionResult<dynamic>> GetCatalog()
         {
-            // Recupera o usuário
+
+            string cookieValue = Request.Cookies["token"];
+
+            if(cookieValue == null)
+                return NotFound(new { message = "Realize o login para acessar o catálogo" });
+
+            // Recupera os produtos
             var products = _repository.GetProduct();
 
-            // Verifica se o usuário existe
+            // Verifica se possui produtos
             if (products.Count == 0)
-                return NotFound(new { message = "USem produtos para exibir" });
+                return NotFound(new { message = "Sem produtos para exibir" });
 
-            // Gera o Token
-            //var token = TokenService.GenerateToken(products);
-
-            // Oculta a senha
-            //user.Password = "";
-
-            // Retorna os dados
             return products;
+
         }
     }
 }

@@ -25,15 +25,28 @@ namespace Login.Controllers
         [Route("login")]
         public async Task<ActionResult<dynamic>> Authenticate([FromBody] User model)
         {
-            // Recupera o usuário
-            var user = await _repository.GetUserAsync(model.Username, model.Password);
+            var user = new User();
+            var token = "";
+
+            if (model.Username != null & model.Password != null)
+            {
+                user = await _repository.GetUserAsync(model.Username, model.Password);
+            }
+            else
+            {
+                return NotFound(new { message = "Informar usuário e senha válidos" });
+            }
 
             // Verifica se o usuário existe
             if (user == null)
+            {
                 return NotFound(new { message = "Usuário ou senha inválidos" });
-
-            // Gera o Token
-            var token = TokenService.GenerateToken(user);
+            }
+            else
+            {
+                token = TokenService.GenerateToken(user);
+                SaveCookie(user.Username, user.Role, token);
+            }
 
             // Oculta a senha
             user.Password = "";
@@ -44,6 +57,17 @@ namespace Login.Controllers
                 user = user,
                 token = token
             };
+        }
+
+        private void SaveCookie(string user, string role, string token) 
+        {
+            CookieOptions cookieOptions = new CookieOptions();
+
+            cookieOptions.Expires = DateTime.Now.AddHours(2);
+            cookieOptions.Path = "/";
+            Response.Cookies.Append("User", user, cookieOptions);
+            Response.Cookies.Append("Role", role, cookieOptions);
+            Response.Cookies.Append("Token", token, cookieOptions);
         }
     }
 }
