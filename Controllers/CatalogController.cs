@@ -24,8 +24,15 @@ namespace Login.Controllers
 
             string cookieValue = Request.Cookies["token"];
 
-            if(cookieValue == null)
+            if (cookieValue == null)
+            {
                 return NotFound(new { message = "Realize o login para acessar o catálogo" });
+            }    
+            else
+            {
+                var tokenValidate = TokenService.ValidateToken(cookieValue);
+            }
+                
 
             // Recupera os produtos
             var products = _repository.GetProduct();

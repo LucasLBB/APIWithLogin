@@ -1,4 +1,4 @@
-﻿namespace Login.Repositories
+﻿namespace Login
 {
     public static class Settings
     {

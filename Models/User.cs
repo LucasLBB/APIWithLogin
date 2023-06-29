@@ -12,6 +12,10 @@ namespace Login.Models
         public string Username { get; set; }
 
         [Required]
+        [StringLength(150)]
+        public string Email { get; set; }
+
+        [Required]
         [StringLength(20)]
         public string Password { get; set; }
 

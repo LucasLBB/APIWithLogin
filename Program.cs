@@ -1,8 +1,8 @@
+using Login;
 using Login.Models;
 using Login.Repositories;
 using Login.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -33,8 +33,12 @@ builder.Services.AddAuthentication(x =>
      {
          ValidateIssuerSigningKey = true,
          IssuerSigningKey = new SymmetricSecurityKey(key),
-         ValidateIssuer = false,
-         ValidateAudience = false
+         ValidateIssuer = true,
+         ValidateActor = true,
+         ValidateAudience = true,
+         ValidateLifetime = true,
+         ValidIssuer = x.ClaimsIssuer,
+         ValidAudience = x.Audience
      };
  });
 

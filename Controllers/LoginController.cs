@@ -28,9 +28,9 @@ namespace Login.Controllers
             var user = new User();
             var token = "";
 
-            if (model.Username != null & model.Password != null)
+            if (model.Email != null & model.Password != null)
             {
-                user = await _repository.GetUserAsync(model.Username, model.Password);
+                user = await _repository.GetUserAsync(model.Email, model.Password);
             }
             else
             {
