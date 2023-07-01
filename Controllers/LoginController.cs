@@ -45,7 +45,7 @@ namespace Login.Controllers
             else
             {
                 token = TokenService.GenerateToken(user);
-                SaveCookie(user.Username, user.Role, token);
+                SaveCookie(user.Username, user.Role, user.Email, token);
             }
 
             // Oculta a senha
@@ -59,13 +59,14 @@ namespace Login.Controllers
             };
         }
 
-        private void SaveCookie(string user, string role, string token) 
+        private void SaveCookie(string user, string role, string email, string token) 
         {
             CookieOptions cookieOptions = new CookieOptions();
 
             cookieOptions.Expires = DateTime.Now.AddHours(2);
             cookieOptions.Path = "/";
             Response.Cookies.Append("User", user, cookieOptions);
+            Response.Cookies.Append("Email", email, cookieOptions);
             Response.Cookies.Append("Role", role, cookieOptions);
             Response.Cookies.Append("Token", token, cookieOptions);
         }
